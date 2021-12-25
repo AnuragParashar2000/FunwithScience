@@ -4,6 +4,11 @@ import { Form, Button } from "react-bootstrap";
 import "../NuclearPhysics.css";
 import { Helmet } from "react-helmet";
 import Navbar from "../../Navbar/Navbar";
+import Solution from "../../Solution/Solution";
+import {constant} from '../../Solution/allConstants'
+import {SI} from '../../Solution/allSIUnits'
+import Modal from "react-bootstrap/Modal";
+
 
 function Calculator({ match }) {
   // topics_data
@@ -194,22 +199,48 @@ function Calculator({ match }) {
 
   // Mass-Energy Calculator
   function MassEnergy() {
-    const [result, setResult] = useState(null);
-    const [mass, setmass] = useState(null);
+    const [result, setResult] = useState("");
+    const [mass, setmass] = useState("");
+    const [showSolution, setShowSolution] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+
 
     const handleClick = () => {
-      let res = mass * 9;
+      if (mass!= ""){
+      let res = mass * (3*Math.pow(10,8))*(3*Math.pow(10,8));
+      setShowSolution(true);
       setResult(res);
+      }else {
+        setShowModal(true)
+      }
     };
+
+    const givenValues = {
+      MassDefect: mass,
+    };
+
+    const resetForm = () => {
+      setmass("");
+      setShowSolution(false);
+      setResult("");
+    };
+
+    const insertValues = ` ${mass}${SI["MassDefect"]} * (${constant["c"]})²`;
+    const constants = ["c"];
 
     return (
       <React.Fragment>
+         <Modal show={showModal} class="modal-dialog modal-dialog-centered">
+          <Modal.Header >Please Enter all values to get Proper answer</Modal.Header>
+          <Modal.Footer><Button onClick={()=>setShowModal(false)} class="btn btn-primary btn-sm">Close</Button></Modal.Footer>
+        </Modal>
         <Form>
           <Form.Group className="mb-3" controlId="mass">
             <Form.Label> Mass Defect(m)</Form.Label>
             <Form.Control
               onChange={(e) => setmass(e.target.value)}
               type="number"
+              value={mass}
               placeholder="Enter the Mass Defect in kg"
             />
           </Form.Group>
@@ -217,14 +248,25 @@ function Calculator({ match }) {
             <Form.Label>Speed of Light (c)</Form.Label>
             <Form.Control readOnly type="number" placeholder={"3 x 10⁸ m/s"} />
           </Form.Group>
-
+          {showSolution ? (
+          <Form.Group className="mb-3" controlId="acceleration">
+            <Solution
+              givenValues={givenValues}
+              formula="mc²"
+              toFind="Energy Released"
+              insertValues={insertValues}
+              result={result}
+              constants={constants}
+            />
+          </Form.Group>
+        ) : null}
           <Form.Group className="mb-3" controlId="momentum">
             <Form.Label>Energy Released(E)</Form.Label>
             <Form.Control
               readOnly
               type="number"
               placeholder={
-                result === null ? "Result" : result + " x 10¹⁶ Joules"
+                result === "" ? "Result" : result + " Joules"
               }
             />
             <Form.Text className="text-muted">
@@ -236,7 +278,7 @@ function Calculator({ match }) {
               Calculate
             </Button>
             &nbsp;&nbsp;&nbsp;
-            <Button variant="dark" onClick={() => setResult(null)} type="reset">
+            <Button variant="dark" onClick={resetForm} type="reset">
               Reset
             </Button>
           </div>
@@ -248,22 +290,46 @@ function Calculator({ match }) {
   //Radius of Nucleus Calculator
   function Radius() {
     const [result, setResult] = useState(null);
-    const [massnumber, setmassnumber] = useState(null);
+    const [massnumber, setmassnumber] = useState("");
+    const [showSolution, setShowSolution] = useState(false);
+    const [showModal, setShowModal] = useState(false);
 
     const R0 = 1.2;
     const handleClick = () => {
+      if(massnumber!=""){
       let res = R0 * Math.pow(massnumber, 1 / 3);
       setResult(res);
-    };
+      setShowSolution(true);
+  }else{
+    setShowModal(true)
+  }
+  };
+
+  const givenValues = {
+    MassNumber: massnumber,
+  };
+
+  const resetForm = () => {
+    setmassnumber("");
+    setShowSolution(false);
+    setResult("");
+  };
+
+  const insertValues = `${massnumber}${SI["massnumber"]}`;
 
     return (
       <React.Fragment>
+        <Modal show={showModal} class="modal-dialog modal-dialog-centered">
+          <Modal.Header >Please Enter all values to get Proper answer</Modal.Header>
+          <Modal.Footer><Button onClick={()=>setShowModal(false)} class="btn btn-primary btn-sm">Close</Button></Modal.Footer>
+        </Modal>
         <Form>
           <Form.Group className="mb-3" controlId="mass">
             <Form.Label> Mass Number(A)</Form.Label>
             <Form.Control
               onChange={(e) => setmassnumber(e.target.value)}
               type="number"
+              value={massnumber}
               placeholder="Enter the Mass Number"
             />
           </Form.Group>
@@ -273,12 +339,24 @@ function Calculator({ match }) {
             <Form.Control readOnly type="number" placeholder={"1.2 x 10⁻¹⁵"} />
           </Form.Group>
 
+          {showSolution ? (
+          <Form.Group className="mb-3" controlId="acceleration">
+            <Solution
+              givenValues={givenValues}
+              formula="(dA/dt) x 2m"
+              toFind="Angular Momentum"
+              insertValues={insertValues}
+              result={result}
+            />
+          </Form.Group>
+        ) : null}
+        
           <Form.Group className="mb-3" controlId="momentum">
             <Form.Label>Radius of Nucleus(R)</Form.Label>
             <Form.Control
               readOnly
               type="number"
-              placeholder={result === null ? "Result" : result + " x 10⁻¹⁵ m"}
+              placeholder={result === "" ? "Result" : result + " x 10⁻¹⁵ m"}
             />
             <Form.Text className="text-muted">
               Enter the above values to Calculate.
@@ -289,7 +367,7 @@ function Calculator({ match }) {
               Calculate
             </Button>
             &nbsp;&nbsp;&nbsp;
-            <Button variant="dark" onClick={() => setResult(null)} type="reset">
+            <Button variant="dark" onClick={resetForm} type="reset">
               Reset
             </Button>
           </div>
