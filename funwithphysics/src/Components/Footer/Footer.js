@@ -8,12 +8,31 @@ const Footer = () => {
     <React.Fragment>
       <footer>
         <div className="main-content">
-          <div className="left box">
+          <div className="left box-res">
             <div className="footer-logo">
               <img src={logo} alt="logo" />
             </div>
           </div>
 
+          <div className="center1 box">
+            <h2 className="additional">Additional Links</h2>
+            <div className="content">
+              <div className="center-bottom">
+                <div className="">
+                  <Link to="/">
+                    <span className="fas fa-user"></span>
+                  </Link>
+                  <span className="text">About Us</span>
+                </div>
+                <div className="contact">
+                  <Link to="/contact">
+                    <span className="fas fa-comments"></span>
+                  </Link>
+                  <span className="text">Contact</span>
+                </div>
+              </div>
+            </div>
+          </div>
           <div className="center box">
             <h2>Connect with Us</h2>
             <div className="content">
@@ -45,37 +64,13 @@ const Footer = () => {
                       <span className="fab fa-linkedin-in"></span>
                     </Link>
                   </li>
-                  <li>
-                    <Link
-                      to={{ pathname: "https://github.com/Amit366" }}
-                      target="_blank"
-                    >
-                      <span className="fab fa-github"></span>
-                    </Link>
-                  </li>
                 </div>
-              </div>
-            </div>
-            <h2 className="additional">Additional Links</h2>
-            <div className="content"></div>
-            <div className="center-bottom">
-              <div>
-                <Link to="/">
-                  <span className="fas fa-user"></span>
-                </Link>
-                <span className="text">About Us</span>
-              </div>
-              <div className="contact">
-                <Link to="#contactUs">
-                  <span className="fas fa-comments"></span>
-                </Link>
-                <span className="text">Contact</span>
               </div>
             </div>
           </div>
 
           <div className="right box">
-          <h2>Address</h2>
+            <h2>Address</h2>
             <div className="content">
               <div className="place">
                 <span className="fas fa-map-marker-alt"></span>
