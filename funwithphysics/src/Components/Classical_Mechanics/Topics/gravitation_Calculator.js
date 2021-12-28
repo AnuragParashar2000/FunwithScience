@@ -90,9 +90,9 @@ function GravitationCalculator({ match }) {
 
     // object of given values
     const givenValues = {
-      mass_A: mass_A,
-      mass_B: mass_B,
-      distance: distance,
+      Mass_A: mass_A,
+      Mass_B: mass_B,
+      Distance: distance,
     };
 
     // defintion of insertValues
@@ -101,14 +101,14 @@ function GravitationCalculator({ match }) {
     // how to add constant
     // example ${constant["G"]}
 
-    const insertValues = `${constant["G"]} * ${mass_A}${SI["mass"]} * ${mass_B}${SI["mass"]} / (${distance} ${SI["distance"]})² `;
+    const insertValues = `(${constant["G"]} * ${mass_A}${SI["mass"]} * ${mass_B}${SI["mass"]}) / (${distance} ${SI["distance"]})² `;
 
     // It Have List of all constant used in that formulae
     const constants = ["G"];
 
     //add these  validation also and also set setShowSolution
     const handleClick = () => {
-      if (mass_A != "" && mass_B != "" && distance != "") {
+      if (mass_A !== "" && mass_B !== "" && distance !== "") {
         let res =
           (6.67 * Math.pow(10, -11) * mass_A * mass_B) / (distance * distance);
         setShowSolution(true);
@@ -226,7 +226,7 @@ function GravitationCalculator({ match }) {
     // const [G, setG] = useState(Math.G);
 
     const handleClick = () => {
-      if (mass != "" && distance != "") {
+      if (mass !== "" && distance !== "") {
         let res = (6.67 * Math.pow(10, -11) * mass) / (distance * distance);
         setShowSolution(true);
         setResult(res);
@@ -247,7 +247,7 @@ function GravitationCalculator({ match }) {
       setResult("");
     };
 
-    const insertValues = `${constant["G"]} * ${mass}${SI["mass"]}/ (${distance} ${SI["distance"]})² `;
+    const insertValues = `(${constant["G"]} * ${mass}${SI["mass"]}) / (${distance} ${SI["distance"]})² `;
     const constants = ["G"];
 
     return (
@@ -340,7 +340,7 @@ function GravitationCalculator({ match }) {
     const [showModal, setShowModal] = useState(false);
 
     const handleClick = () => {
-      if (mass_A!= "" && mass_B!="" && distance!=""){
+      if (mass_A!== "" && mass_B!=="" && distance!==""){
       let res = -(6.67 * Math.pow(10, -11) * mass_A * mass_B) / distance;
       setResult(res);
       setShowSolution(true);
@@ -350,8 +350,8 @@ function GravitationCalculator({ match }) {
     };
 
     const givenValues = {
-      mass_A: mass_A,
-      mass_B: mass_B,
+      Mass_A: mass_A,
+      Mass_B: mass_B,
       Distance: distance,
     };
 
@@ -363,7 +363,7 @@ function GravitationCalculator({ match }) {
       setResult("");
     };
 
-    const insertValues = `- ${constant["G"]} * ${mass_A}${SI["mass"]} * ${mass_B}${SI["mass"]} / (${distance} ${SI["distance"]}) `;
+    const insertValues = `- (${constant["G"]} * ${mass_A}${SI["mass"]} * ${mass_B}${SI["mass"]}) / (${distance} ${SI["distance"]}) `;
     const constants = ["G"];
 
     return (
@@ -458,7 +458,7 @@ function GravitationCalculator({ match }) {
     const [showModal, setShowModal] = useState(false);
 
     const handleClick = () => {
-      if (mass!= "" && radius!= ""){
+      if (mass!== "" && radius!== ""){
       let res = Math.sqrt((2 * 6.67 * Math.pow(10, -11) * mass) / radius);
       setShowSolution(true);
       setResult(res);
@@ -479,7 +479,7 @@ function GravitationCalculator({ match }) {
       setResult("");
     };
 
-    const insertValues = ` √(2 * ${constant["G"]} * ${mass}${SI["Mass"]} / ${radius}${SI["Radius"]})`;
+    const insertValues = ` √[(2 * ${constant["G"]} * ${mass}${SI["Mass"]}) / (${radius}${SI["Radius"]})]`;
     const constants = ["G"];
 
     return (
@@ -562,7 +562,7 @@ function GravitationCalculator({ match }) {
     const [showModal, setShowModal] = useState(false);
 
     const handleClick = () => {
-      if (mass!= "" && area!= "" && time!=""){
+      if (mass!== "" && area!== "" && time!==""){
       let res = (mass * area * 2) / time;
       setResult(res);
       setShowSolution(true);
@@ -637,7 +637,7 @@ function GravitationCalculator({ match }) {
             <Form.Control
               readOnly
               type="number"
-              placeholder={result === "" ? "Result" : result + " kg-m²/sec"}
+              placeholder={result === "" ? "Result" : result + " kg-m²/s"}
             />
             <Form.Text className="text-muted">
               Enter all the above fields to calculate the angular momentum.
@@ -675,13 +675,13 @@ function GravitationCalculator({ match }) {
 
     const calcResult = () => {
       let res;
-      if (choice === "timeperiod" && mass!="" && sma!="") {
+      if (choice === "timeperiod" && mass!=="" && sma!=="") {
         res = Math.sqrt(
           (4 * Math.pow(Math.PI, 2) * Math.pow(sma, 3)) /
             (6.67 * Math.pow(10, -11) * mass)
         );
         setShowSolution(true);
-      } else if (choice === "semimajoraxis" && mass!="" && timeperiod!="") {
+      } else if (choice === "semimajoraxis" && mass!=="" && timeperiod!=="") {
         res = Math.cbrt(
           (6.67 * Math.pow(10, -11) * mass * Math.pow(timeperiod, 2)) /
             (4 * Math.pow(Math.PI, 2))
@@ -697,7 +697,7 @@ function GravitationCalculator({ match }) {
       if (choice === "timeperiod")
         return {
       Mass: mass,
-      a: sma,
+      Semi_Major_Axis: sma,
     };
     else
     return{
@@ -716,9 +716,9 @@ function GravitationCalculator({ match }) {
 
     const insertValues = () => {
       if (choice === "timeperiod")
-        return `√(4 * π² *(${sma}${SI["sma"]})³ / ${constant["G"]} * ${mass}${SI["mass"]})`;
+        return `√[(4 * π² *(${sma}${SI["sma"]})³) / (${constant["G"]} * ${mass}${SI["mass"]})]`;
       else
-      return `∛(${constant["G"]} * ${mass}${SI["mass"]} * (${timeperiod}${SI["TimePeriod"]})² / 4 * π²)`;
+      return `∛[(${constant["G"]} * ${mass}${SI["mass"]} * (${timeperiod}${SI["TimePeriod"]})²) / (4 * π²)]`;
     }
     const constants = ["G"];
 
