@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Calculator.css";
-import { Form, Button,Modal } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import "../NuclearPhysics.css";
 import { Helmet } from "react-helmet";
 import Navbar from "../../Navbar/Navbar";
@@ -123,8 +123,6 @@ function Calculator({ match }) {
     const Melectron = 0.000548597;
     const Mptoton = 1.007277;
     const Mneutron = 1.008665;
-    const constants=["me","mp","mn"];
-    const insertValues = `[${atomicNumber} * ( ${Mptoton} + ${Melectron} ) + (${massNumber} - ${atomicNumber})* ${Mneutron} ] - ${matom}`;
     const calcResult = () => {
       if(atomicNumber!==null && massNumber!==null && matom!==null){
       let res;
@@ -217,7 +215,7 @@ function Calculator({ match }) {
             <Form.Control
               readOnly
               type="number"
-              placeholder={result === "" ? "Result" : result + " amu"}
+              placeholder={result === null ? "Result" : result + " amu"}
             />
           </Form.Group>
         </Form>
@@ -225,7 +223,7 @@ function Calculator({ match }) {
           <Button variant="primary" onClick={calcResult}>
             Calculate
           </Button>
-
+          &nbsp;&nbsp;&nbsp;
           <Button variant="dark" onClick={() => reset()} type="reset">
             Reset
           </Button>

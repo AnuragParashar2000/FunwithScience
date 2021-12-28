@@ -14,9 +14,12 @@ export const constant = {
   mass_electron:"0.000548597 amu",
   mass_proton:"1.007277 amu",
   mass_neutron:"1.008665 amu",
+<<<<<<< HEAD
   me: "0.000548597 amu",
   mp: "1.007277 amu",
   mn: "1.008665 amu",
   R: "1.097 × 10⁷ m⁻¹",
 
+=======
+>>>>>>> 429c3783be1226081c39691875b3255c4e8ff930
 };
